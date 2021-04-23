@@ -3,11 +3,41 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore, combneReducers } from 'redux';
+import { Provider } from "react-redux";
+
+// state
+
+let state_value = {
+  counter: 0,
+  message: "COUNTER"
+}
+
+// reducer
+function counter(state = state_value, action){
+  switch(action.type){
+    case 'INCREMENT':
+      return{
+        counter: state.counter + 1,
+        message: "INCREMENT",
+      };
+    case 'DECREMENT':
+      return{
+        counter: state.counter - 1,
+        message: "DECREMENT",
+      };
+    default:
+    return state;
+  }
+}
+
+// store
+let store = createStore(counter);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
